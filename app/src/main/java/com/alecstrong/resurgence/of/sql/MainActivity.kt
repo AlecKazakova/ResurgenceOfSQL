@@ -79,12 +79,11 @@ class MainActivity : AppCompatActivity() {
           return@fromCallable value to timeToEvaluate
         }
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe {
           loading.visibility = View.VISIBLE
           valueText.visibility = View.INVISIBLE
         }
-        .subscribeOn(AndroidSchedulers.mainThread())
-        .observeOn(AndroidSchedulers.mainThread())
         .subscribe { (value, timeToEvaluate) ->
           loading.visibility = View.INVISIBLE
           valueText.visibility = View.VISIBLE
