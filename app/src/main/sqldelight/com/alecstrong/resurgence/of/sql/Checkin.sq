@@ -1,0 +1,75 @@
+import java.util.Calendar;
+
+CREATE TABLE checkin (
+  _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  time INTEGER AS Calendar NOT NULL
+);
+
+insertCheckin:
+INSERT INTO checkin (name, time) VALUES (?, ?);
+
+selectAll:
+SELECT *
+FROM checkin;
+
+checkinsWithFriendsDoubleSubquery:
+SELECT count(*)
+FROM checkin
+WHERE _id IN (
+  SELECT checkin_id
+  FROM user_checkin
+  WHERE user_id IN (
+    SELECT friend1
+    FROM friendship
+    WHERE friend2 = :my_id
+    UNION
+    SELECT friend2
+    FROM friendship
+    WHERE friend1 = :my_id
+  )
+);
+
+checkinsWithFriendsDistinctSubquery:
+SELECT count(DISTINCT _id)
+FROM checkin
+JOIN user_checkin ON (_id = checkin_id)
+WHERE user_id IN (
+  SELECT friend1
+  FROM friendship
+  WHERE friend2 = :my_id
+  UNION
+  SELECT friend2
+  FROM friendship
+  WHERE friend1 = :my_id
+);
+
+checkinsWithFriendsJoin:
+SELECT count(DISTINCT checkin._id)
+FROM checkin
+JOIN user_checkin ON (_id = checkin_id)
+JOIN friendship ON (
+  (user_id = friend1 AND friend2 = :my_id) OR
+  (user_id = friend2 AND friend1 = :my_id)
+);
+
+checkinsWithFriends:
+SELECT count(DISTINCT checkin_id)
+FROM user_checkin
+JOIN friendship ON (
+  (user_id = friend1 AND friend2 = :my_id) OR
+  (user_id = friend2 AND friend1 = :my_id)
+);
+
+indexedQuery:
+SELECT count(DISTINCT checkin_id)
+FROM user_checkin
+WHERE user_id IN (
+  SELECT friend1
+  FROM friendship
+  WHERE friend2 = :my_id
+  UNION
+  SELECT friend2
+  FROM friendship
+  WHERE friend1 = :my_id
+);

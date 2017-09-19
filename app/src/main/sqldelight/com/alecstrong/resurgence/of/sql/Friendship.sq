@@ -1,0 +1,25 @@
+CREATE TABLE friendship (
+  friend1 INTEGER NOT NULL REFERENCES user,
+  friend2 INTEGER NOT NULL REFERENCES user,
+  became_friends INTEGER NOT NULL DEFAULT CURRENT_TIME,
+  PRIMARY KEY (friend1, friend2)
+);
+
+friend2Index:
+CREATE INDEX friend2Index ON friendship(friend2);
+
+insertFriendship:
+INSERT INTO friendship (friend1, friend2) VALUES (?, ?);
+
+selectAll:
+SELECT *
+FROM friendship;
+
+selectMyFriends:
+SELECT friend1
+FROM friendship
+WHERE friend2 = :my_id
+UNION
+SELECT friend2
+FROM friendship
+WHERE friend1 = :my_id;

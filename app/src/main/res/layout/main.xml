@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    >
+
+  <FrameLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      >
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        />
+  </FrameLayout>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      >
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+      <RadioButton
+          android:id="@+id/in_memory"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:checked="true"
+          android:text="In Memory"
+          />
+      <RadioButton
+          android:id="@+id/in_memory_with_friends"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:checked="true"
+          android:text="In Memory With Friends"
+          />
+      <RadioButton
+          android:id="@+id/double_sunquery"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Double Subquery"
+          />
+      <RadioButton
+          android:id="@+id/distinct"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Distinct Id"
+          />
+      <RadioButton
+          android:id="@+id/joins"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Joins"
+          />
+      <RadioButton
+          android:id="@+id/checkins"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Checkins One Join"
+          />
+    </RadioGroup>
+  </ScrollView>
+
+  <TextView
+      android:id="@+id/information"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      >
+
+    <EditText
+        android:id="@+id/num_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Users"
+        />
+
+    <EditText
+        android:id="@+id/num_checkins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Checkins"
+        />
+
+    <Button
+        android:id="@+id/compute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/compute_value"
+        />
+  </LinearLayout>
+
+</LinearLayout>

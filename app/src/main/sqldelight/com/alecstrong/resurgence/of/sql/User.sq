@@ -1,0 +1,11 @@
+CREATE TABLE user (
+  _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL
+);
+
+insertUser:
+INSERT INTO user (name) VALUES (?);
+
+selectAll:
+SELECT *
+FROM user;

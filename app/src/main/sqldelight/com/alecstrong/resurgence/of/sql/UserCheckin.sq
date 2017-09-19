@@ -1,0 +1,16 @@
+CREATE TABLE user_checkin (
+  checkin_id INTEGER NOT NULL REFERENCES checkin,
+  user_id INTEGER NOT NULL REFERENCES user,
+  PRIMARY KEY(checkin_id, user_id)
+);
+
+createIndex:
+CREATE INDEX userIdIndex ON user_checkin(user_id);
+
+insertUserCheckin:
+INSERT INTO user_checkin
+VALUES (?, ?);
+
+selectAll:
+SELECT *
+FROM user_checkin;
