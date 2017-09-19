@@ -31,9 +31,9 @@ The same, but assume the data is given to us and only measure the logic of findi
 |10000|3898|
 |20000|10151|
 |30000|15607|
-|50000|	 |
+|50000|29984|
 
-So our queries are accounting for somewhere around 40-60% of the initial implementation.
+So our queries are accounting for somewhere around 10% of the initial implementation.
 
 ### select only friends, filter in java
 
