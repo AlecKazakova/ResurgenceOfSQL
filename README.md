@@ -223,34 +223,28 @@ friend1 = user_id and friend2 = my_id.
 Now lets take a look at the subquery query plan:
 ```sql
 EXPLAIN QUERY PLAN
-SELECT count(*)
-FROM checkin
-WHERE _id IN (
-  SELECT checkin_id
-  FROM user_checkin
-  WHERE user_id IN (
-    SELECT friend1
-    FROM friendship
-    WHERE friend2 = :my_id
-    UNION
-    SELECT friend2
-    FROM friendship
-    WHERE friend1 = :my_id
-  )
-);
+SELECT count(DISTINCT checkin_id)
+FROM user_checkin
+WHERE user_id IN (
+  SELECT friend1
+  FROM friendship
+  WHERE friend2 = :my_id
+  UNION
+  SELECT friend2
+  FROM friendship
+  WHERE friend1 = :my_id
+)
 ```
 
 which has the output:
 
 |selectid|order|from|detail|
 |-|-|-|-|
-|"0"|	"0"|	"0"|	"SEARCH TABLE checkin USING INTEGER PRIMARY KEY (rowid=?)"|
+|"0"|	"0"|	"0"|	"SCAN TABLE user_checkin"|
 |"0"|	"0"|	"0"|	"EXECUTE LIST SUBQUERY 1"|
-|"1"|	"0"|	"0"|	"SCAN TABLE user_checkin"|
-|"1"|	"0"|	"0"|	"EXECUTE LIST SUBQUERY 2"|
-|"3"|	"0"|	"0"|	"SCAN TABLE friendship USING COVERING INDEX sqlite_autoindex_friendship_1"|
-|"4"|	"0"|	"0"|	"SEARCH TABLE friendship USING COVERING INDEX sqlite_autoindex_friendship_1 (friend1=?)"|
-|"2"|	"0"|	"0"|	"COMPOUND SUBQUERIES 3 AND 4 USING TEMP B-TREE (UNION)"|
+|"2"|	"0"|	"0"|	"SCAN TABLE friendship USING COVERING INDEX sqlite_autoindex_friendship_1"|
+|"3"|	"0"|	"0"|	"SEARCH TABLE friendship USING COVERING INDEX sqlite_autoindex_friendship_1 (friend1=?)"|
+|"1"|	"0"|	"0"|	"COMPOUND SUBQUERIES 2 AND 3 USING TEMP B-TREE (UNION)"|
 
 Now we're seeing values for the "selectid" column. This column is just an identifier for the subquery. Compound queries
 are considered a subquery so the subqueries correspond to:
