@@ -5,6 +5,7 @@ import android.support.test.runner.AndroidJUnit4
 import android.util.Log
 import com.alecstrong.resurgence.of.sql.data.Friendship
 import com.alecstrong.resurgence.of.sql.data.MyDatabase
+import com.alecstrong.resurgence.of.sql.data.User
 import com.alecstrong.resurgence.of.sql.data.UserCheckin
 import org.junit.Test
 import org.junit.runner.RunWith

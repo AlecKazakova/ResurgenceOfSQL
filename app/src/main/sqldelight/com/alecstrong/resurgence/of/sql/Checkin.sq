@@ -31,9 +31,8 @@ WHERE _id IN (
 );
 
 checkinsWithFriendsDistinctSubquery:
-SELECT count(DISTINCT _id)
-FROM checkin
-JOIN user_checkin ON (_id = checkin_id)
+SELECT count(DISTINCT checkin_id)
+FROM user_checkin
 WHERE user_id IN (
   SELECT friend1
   FROM friendship

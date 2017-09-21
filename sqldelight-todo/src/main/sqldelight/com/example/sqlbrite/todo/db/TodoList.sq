@@ -1,0 +1,22 @@
+CREATE TABLE todo_list (
+  _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  archived INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+seedData:
+INSERT INTO todo_list (_id, name)
+VALUES (1, 'Grocery List'),
+       (2, 'Holiday Presents'),
+       (3, 'Work Items'),
+       (4, 'Birthday Presents');
+
+insertList:
+INSERT INTO todo_list (name)
+VALUES (?);
+
+selectListItems:
+SELECT list._id, list.name, count(item._id) AS item_count
+FROM todo_list AS list
+LEFT OUTER JOIN todo_item AS item ON (list._id = item.todo_list_id)
+GROUP BY list._id;

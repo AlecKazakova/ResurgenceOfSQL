@@ -1,0 +1,44 @@
+CREATE TABLE todo_item (
+  _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  todo_list_id INTEGER NOT NULL REFERENCES todo_list,
+  description TEXT NOT NULL,
+  complete INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+createListIdIndex:
+CREATE INDEX item_list_id ON todo_item(todo_list_id);
+
+seedData:
+INSERT INTO todo_item (todo_list_id, description)
+VALUES (1, 'Beer'),
+       (1, 'Point Break on DVD'),
+       (1, 'Bad Boys 2 on DVD'),
+       (2, 'Pogo Stick for Jake W.'),
+       (2, 'Jack-in-the-box for Alec S.'),
+       (2, 'Pogs for Matt P.'),
+       (2, 'Cola for Jesse W.'),
+       (3, 'Finish SQLBrite Library'),
+       (3, 'Finish SQLBrite Sample App'),
+       (3, 'Publish SQLBrite to Github'),
+       (4, 'New Car');
+
+insertItem:
+INSERT INTO todo_item (todo_list_id, description)
+VALUES (?, ?);
+
+setComplete:
+UPDATE todo_item
+SET complete = ?
+WHERE _id = ?;
+
+selectForList:
+SELECT *
+FROM todo_item
+WHERE todo_list_id = ?;
+
+titleAndCount:
+SELECT name, count(todo_item._id)
+FROM todo_list
+LEFT JOIN todo_item ON (todo_list._id = todo_list_id)
+WHERE todo_list._id = ? AND complete = 0
+GROUP BY todo_list._id;

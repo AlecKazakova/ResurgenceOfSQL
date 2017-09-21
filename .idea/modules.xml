@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ResurgenceOfSQL.iml" filepath="$PROJECT_DIR$/ResurgenceOfSQL.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/room-todo/room-todo.iml" filepath="$PROJECT_DIR$/room-todo/room-todo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqldelight-todo/sqldelight-todo.iml" filepath="$PROJECT_DIR$/sqldelight-todo/sqldelight-todo.iml" />
     </modules>
   </component>
 </project>
